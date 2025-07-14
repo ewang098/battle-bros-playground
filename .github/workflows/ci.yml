@@ -1,17 +1,35 @@
-name: CI - Commitlint on PR (latest commit only)
-
+name: CI
 on:
   pull_request:
     branches:
       - main
 
 jobs:
-  commitlint:
+  python-lint:
+    name: Python Lint (ruff)
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout PR branch with full history
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Run ruff lint check (no auto-fix)
+        run: ruff check .
+
+  commitlint:
+    name: Commitlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
@@ -21,8 +39,32 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install npm dependencies
         run: npm install
 
       - name: Run commitlint on latest commit only
         run: npx commitlint --from=HEAD~1 --to=HEAD
+
+  pytest:
+    name: Run Tests (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        working-directory: manage_a_bro
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Run tests
+        run: pytest

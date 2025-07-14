@@ -1,0 +1,25 @@
+{
+"scripts": {
+  "prepare": "husky install",
+  "postinstall": "npm run setup:hooks",
+  "setup:hooks": "npx husky add .husky/commit-msg 'npx --no-install commitlint --edit \"$1\"' && npx husky add .husky/pre-commit 'npx lint-staged'"
+},
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.0.3",
+    "eslint": "^8.0.0",
+    "prettier": "^2.0.0",
+    "@commitlint/cli": "^17.6.8",
+    "@commitlint/config-conventional": "^17.6.8"
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
+  }
+}

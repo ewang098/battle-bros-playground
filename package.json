@@ -3,6 +3,9 @@
   "prepare": "husky install",
   "setup:hooks": "npx husky add .husky/commit-msg 'npx --no-install commitlint --edit \"$1\"' && npx husky add .husky/pre-commit 'npx lint-staged'"
 },
+"engines": {
+  "node": ">=18"
+},
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",

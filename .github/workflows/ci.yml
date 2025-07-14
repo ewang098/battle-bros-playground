@@ -1,35 +1,28 @@
-name: CI
+name: CI - Commitlint on PR (latest commit only)
 
 on:
-  push:
-    paths:
-      - 'manage-a-bro/**'
   pull_request:
-    paths:
-      - 'manage-a-bro/**'
+    branches:
+      - main
 
 jobs:
-  test:
+  commitlint:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: manage-a-bro
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Checkout PR branch with full history
+        uses: actions/checkout@v3
         with:
-          python-version: '3.11'
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
+        run: npm install
 
-      - name: Run unit tests
-        run: pytest tests/
+      - name: Run commitlint on latest commit only
+        run: npx commitlint --from=HEAD~1 --to=HEAD

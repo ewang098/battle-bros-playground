@@ -1,7 +1,6 @@
 {
 "scripts": {
   "prepare": "husky install",
-  "postinstall": "npm run setup:hooks",
   "setup:hooks": "npx husky add .husky/commit-msg 'npx --no-install commitlint --edit \"$1\"' && npx husky add .husky/pre-commit 'npx lint-staged'"
 },
   "lint-staged": {

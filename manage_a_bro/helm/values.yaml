@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: fastapi-manage-a-bro
+  tag: latest
+  pullPolicy: Never           # Use "IfNotPresent" or "Always" in prod
+
+service:
+  type: NodePort               # Matches your original service type
+  port: 8000                  # Port exposed by the service
+  targetPort: 8000            # Port on the container; defaults to service.port if not set
+
+postgres:
+  pvcSize: 1Gi
+  replicaCount: 1
+  image:
+    repository: postgres
+    tag: "15"
+  service:
+    port: 5432
+  user: myuser
+  password: mypassword
+  db: mydb
+

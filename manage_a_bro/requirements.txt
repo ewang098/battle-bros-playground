@@ -1,0 +1,10 @@
+# === Backend core ===
+fastapi      # main web framework
+uvicorn      # ASGI server used to run FastAPI
+databases[postgresql]  # async DB library with Postgres support
+
+# === Frontend rendering ===
+jinja2       # template engine for HTML rendering
+
+# === Testing ===
+pytest

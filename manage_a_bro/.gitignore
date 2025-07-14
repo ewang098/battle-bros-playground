@@ -1,0 +1,64 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.log
+*.env
+*.egg-info/
+.eggs/
+
+# ========================
+# Unit testing
+# ========================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+
+# ========================
+# Environment & Secrets
+# ========================
+.env
+.env.*
+*.secrets
+secrets.yaml
+*.key
+*.pem
+
+# ========================
+# Docker
+# ========================
+*.tar
+*.img
+*.pid
+
+# ========================
+# VSCode / Editor
+# ========================
+.vscode/
+.idea/
+*.swp
+*~
+
+# ========================
+# Helm
+# ========================
+# Helm build/output files
+helm/Chart.lock
+helm/charts/
+helm/tmpcharts/
+helm/.helmignore  # optional to ignore itself
+*.tgz
+
+# ========================
+# NodePort services can create this on some OS
+# ========================
+.DS_Store

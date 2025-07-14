@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Builds</title>
+  <link rel="stylesheet" href="/static/css/medieval.css" />
+</head>
+<body>
+  <a href="/">← Back to Home</a>
+  <h1>BattleBros Builds</h1>
+  <img src="/static/images/builds.jpg">
+  <ul>
+    {% for build in builds %}
+      <li>
+        {% for key, value in build.items() %}
+          <strong>{{ key }}:</strong> {{ value }}<br>
+        {% endfor %}
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+</body>
+</html>
